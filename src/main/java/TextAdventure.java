@@ -34,6 +34,11 @@ public class TextAdventure {
         Thread.sleep(1000);
         System.out.println("What difficulty do you want? (Easy, Medium, Hard) ");
         String diff = scan.next();
+        /*
+            String originalString = "hello world";
+    String upperCaseString = originalString.toUpperCase();
+    use this part and then use valueOf() on the enum with the uppercase
+         */
         // scene one
         printWithBreak("You arrive to a back alley, where you meet Conner Chan",500);
         printWithBreak("He pees all over you, and says \"boy what the hell boy\"",500);
