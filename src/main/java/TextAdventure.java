@@ -2,12 +2,19 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TextAdventure {
+    private static void printWithBreak(String output, long millis) throws InterruptedException {
+        System.out.println(output);
+        Thread.sleep(millis);
+    }
+
+
     String[] sbuf;
     private static void clearScreen() throws IOException, InterruptedException {
         new ProcessBuilder("clear").inheritIO().start().waitFor();
     }
 
     public static void main(String[] args) throws InterruptedException, IOException {
+        Scanner scan = new Scanner(System.in);
         System.out.println("                                                                                                                                                                                                                                                                                                      \n" +
                 " _________________  ____      ______  _______        ______  _______    _____      _____        _________________       _____     ____   ____       _____     ____   ____        ____    ____  _____   ______    ____   ____       _____    ____    ____   ____             ______            ______  \n" +
                 "/                 \\|    |    |      \\/       \\      |      \\/       \\  |\\    \\    /    /|      /                 \\ ____|\\    \\   |    | |    |  ___|\\    \\   |    | |    |      |    |  |    ||\\    \\ |\\     \\  |    | |    |  ___|\\    \\  |    |  |    | |    |        ___|\\     \\       ___|\\     \\ \n" +
@@ -25,29 +32,13 @@ public class TextAdventure {
         Thread.sleep(1000);
         System.out.println("You are Timmy Tough Knuckles,an aspiring boxer who began his career after his hooker girlfriend left him.");
         Thread.sleep(1000);
+        System.out.println("What difficulty do you want? (Easy, Medium, Hard) ");
+        String diff = scan.next();
         // scene one
-        System.out.println("                  _T_\n" +
-                "                _/   \\_                                    _         _\n" +
-                "                 |---|                                   _[_]    _.-'_'-._\n" +
-                "                _;-'-;_      _                          |    |.-'_.-';'-._'-._\n" +
-                "            _.-',.-;-._'-._ [_]                         |_.-'_.-';   : ; ;'-._'-._\n" +
-                "        _.-'_.-'/\\ ;  ;'-._'-. |____________________ _.-'_.-' ;  ;'  ; ; :   ;'-._'-._\n" +
-                "    _.-'_.-; ; /\\/\\;  ;  ; ;-._'-._              _.-'_.-' ;   ;  ;   :   :   ; ;  ;-._'-._\n" +
-                " .-'_.-;   ; ;</// \\  ;  ; ;  ;'-._'-.-______-.-'_.-;  '; ;  ';  ; . ;   : ' ; ;  ;  ;'-._'-.\n" +
-                "`\";\";__;___;_;_\\/;__&_;__;_;__;___ ;\";\"`     \"\";\"   ;   ;_;___; _:   :  ';  _;_;__;_ ;  ; \";\"`\n" +
-                "  |{}.---------------------------;{}||.-------.| ; '.   | |/\\/\\| |   ;   : | |/\\/\\| |;  ; .|\n" +
-                "  |  |                           |  ||||_____||| ;   \\/'| |\\/\\/| |'  ; . ; | |\\/\\/| |;  () |\n" +
-                "  |  |---------------------------| 2||'-------'| ; '. | |_|/\\/\\|_| ; :   : |_|/\\/\\|_|;'(  )|\n" +
-                "  |  |                           | 7||)(       |_; _ \\|_  ;_ _;_ __;_;__ ;___;_; _;  ;_(   )___\n" +
-                "  |  |---------------------------| 1||\\/_______|==_-=_|__=_ ===_-=-=_=-=_=-=----=-=_=-(    )=-=|\n" +
-                "  |  |            _              | 2||_      )(|-/:::::::::`\\_=\\|/=-=.-\"-.=-=\\|/-=-=-_=(  _)--=|\n" +
-                "  |  |---------------------------|  ||/     _\\/|.--.:::::::::)\\\\|//=(     )-\\\\|//.---.=-||+-=-=|\n" +
-                "jgs^/^^^^^^^^^^^^^^^^^^^^^^^^^^^^/^^^/     /   (    `)==.-.-'^===^==='-Y-'===^==(     )=^.-.^^^^\n" +
-                "   /                             ````     /  .-.'-Y-'  {__ }     ~           ~   '-Y-'  {__~}\n" +
-                "  /                             .----.--.'  { __}   ~                                      .--.\n" +
-                " /                             /    {___~}                                                {  __}\n" +
-                "------------------------------------------------\n");
-        System.out.println("You arrive at a new ");
+        printWithBreak("You arrive to a back alley, where you meet Conner Chan",500);
+        printWithBreak("He pees all over you, and says \"boy what the hell boy\"",500);
+`       Fight connorFight = new Fight("Conner Chan",150,10, Difficulty.EASY);
+
     }
 
 }
