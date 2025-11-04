@@ -1,4 +1,4 @@
-import java.io.IOException;
+
 import java.util.Scanner;
 
 public class TextAdventure {
@@ -6,12 +6,6 @@ public class TextAdventure {
     private static void printWithBreak(String output, long millis) throws InterruptedException {
         System.out.println(output);
         Thread.sleep(millis);
-    }
-
-
-    String[] sbuf;
-    private static void clearScreen() throws IOException, InterruptedException {
-        new ProcessBuilder("clear").inheritIO().start().waitFor();
     }
 
     static int getInput(String input, int len) {
@@ -26,7 +20,7 @@ public class TextAdventure {
             return output;
         }
     }
-    public static void main(String[] args) throws InterruptedException, IOException {
+    public static void main(String[] args) throws InterruptedException {
         int choice; // dummy var for all the menu choices.
 
         gameState state = new gameState();
@@ -200,32 +194,79 @@ public class TextAdventure {
                 fight = new Fight("The Exterminator",150,30,diff);
                 if(fight.fight(user)) {
                     printWithBreak("You are relieved to move onto the championship final, and go to your room to celebrate",1000);
-
+                    state.fightsWon++;
+                } else {
+                    printWithBreak("You leave the fight, defeated.\nYou return to your home.",750);
+                    state.fightsLost++;
+                    break;
+                }
+                printWithBreak("The night before your fight, you get the opportunity to train before your fight, or to go out and party.",750);
+                switch (
+                        getInput("Do you:\n1. Go to the gym\n2. Go party",2)
+                ) {
+                    case 1 -> {
+                        System.out.println("You go to the gym and get some extra gains.\n+7hp,+2dmg");
+                        user.dmg+=2; user.hp+=7;
+                    }
+                    case 2 -> {
+                        System.out.println("Instead of working out, you go to the club and party it up\nYou wake up" +
+                                "the day after, severely hungover.\n-10hp,-2dmg");
+                        user.hp-=10; user.dmg-=2;
+                    }
+                }
+                System.out.println("  █████▒██▓ ███▄    █  ▄▄▄       ██▓         █████▒██▓  ▄████  ██░ ██ ▄▄▄█████▓\n" +
+                        "▓██   ▒▓██▒ ██ ▀█   █ ▒████▄    ▓██▒       ▓██   ▒▓██▒ ██▒ ▀█▒▓██░ ██▒▓  ██▒ ▓▒\n" +
+                        "▒████ ░▒██▒▓██  ▀█ ██▒▒██  ▀█▄  ▒██░       ▒████ ░▒██▒▒██░▄▄▄░▒██▀▀██░▒ ▓██░ ▒░\n" +
+                        "░▓█▒  ░░██░▓██▒  ▐▌██▒░██▄▄▄▄██ ▒██░       ░▓█▒  ░░██░░▓█  ██▓░▓█ ░██ ░ ▓██▓ ░ \n" +
+                        "░▒█░   ░██░▒██░   ▓██░ ▓█   ▓██▒░██████▒   ░▒█░   ░██░░▒▓███▀▒░▓█▒░██▓  ▒██▒ ░ \n" +
+                        " ▒ ░   ░▓  ░ ▒░   ▒ ▒  ▒▒   ▓▒█░░ ▒░▓  ░    ▒ ░   ░▓   ░▒   ▒  ▒ ░░▒░▒  ▒ ░░   \n" +
+                        " ░      ▒ ░░ ░░   ░ ▒░  ▒   ▒▒ ░░ ░ ▒  ░    ░      ▒ ░  ░   ░  ▒ ░▒░ ░    ░    \n" +
+                        " ░ ░    ▒ ░   ░   ░ ░   ░   ▒     ░ ░       ░ ░    ▒ ░░ ░   ░  ░  ░░ ░  ░      \n" +
+                        "        ░           ░       ░  ░    ░  ░           ░        ░  ░  ░  ░         \n" +
+                        "                                                                               ");
+                fight = new Fight("Destroyer of Worlds",250,30,diff);
+                if(fight.fight(user)) {
+                    System.out.println("You did it!!!! You are the LiveLeak Street fighting champion!!!!");
+                    state.fightsWon++;
+                    state.wonChampionship = true;
+                } else {
+                    System.out.println("You leave defeated, but you still have some fame to your name.");
+                    state.fightsLost++;
                 }
             }
             case 2 -> {
+                // zen mode
+                printWithBreak("You arrive at the zen society, in hopes of achieving true nirvana.",500);
+                printWithBreak("You spend the rest of your week meditating and taking trips to incense stores.",1000);
 
             }
         }
 
         // ending scenarios
-        if(state.fightsWon>=4 && state.choseFighting) {
+        if((state.fightsWon>=4 && state.choseFighting) || state.wonChampionship ) {
+            // good ending
             System.out.println("In the end, you ended up as a professional boxer, making all the money" +
                     "you could ask for.\nYou live out the rest of your life in lavish houses with all the money you could" +
                     "ask for.");
             Thread.sleep(500);
         }
         if(state.fightsWon<4 && state.choseFighting) {
+            // mid ending
             System.out.println("Your boxing career never really took off, and you never became as" +
                     "popular as you hoped to.\nYou ended up working at amazon, stocking shelves.");
         }
-        // secret ending
+
         if(state.zenScore == 7 && state.choseZen) {
+            // secret ending
             System.out.println("After a long night of doing a LOT of acid, you think back" +
                     "on your life, and just how zen you have truly become.\nYou decide to fly to" +
                     "India to live in a temple with monks for the rest of your life.\nYou never throw" +
                     "another punch again.");
-            System.out.println("Secret ending unlocked! You are truly zen.");
+            System.out.println("Secret ending unlocked! You have achieved nirvana.");
+        }
+        if(state.zenScore < 4 && state.choseZen) {
+            System.out.println("After years of meditating, you think back and wish you had never" +
+                    "fought anyone.\nYou spend the rest of your days meditating, hoping one day to achieve nirvana.");
         }
         System.out.println("            )                )  (      \n" +
                 "  *   )  ( /(             ( /(  )\\ )   \n" +
